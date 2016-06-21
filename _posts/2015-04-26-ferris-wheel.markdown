@@ -2,7 +2,7 @@
 title:  "Ferris Wheel"
 subtitle: "A beautiful day, Wish you have a good mood!"
 author: "SQSong"
-avatar: "img/authors/wferr.png"
+avatar: "img/authors/song.png"
 image: "img/g.jpg"
 date:   2015-04-26 12:12:12
 ---
