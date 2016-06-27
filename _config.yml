@@ -61,7 +61,7 @@ ga_domain: sqsong.me
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "打打代码, 看看电影, 读读书 !"
+sidebar-about-description: "打打代码, 看看电影, 读读书 !!!"
 sidebar-avatar: /img/avatar-bg.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
