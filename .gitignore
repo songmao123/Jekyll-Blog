@@ -1,25 +1,10 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-# =========================
-# Operating System Files
-# =========================
+_site
+node_modules
+npm-debug.log
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+*.sh
 
 # OSX
 # =========================
@@ -50,4 +35,3 @@ _site
 
 .gitattributes
 .gitignore~
-
