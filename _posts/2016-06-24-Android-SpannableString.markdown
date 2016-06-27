@@ -5,7 +5,7 @@ subtitle:   "使用SpannableString对TextView文本进行格式化处理"
 date:       2016-06-20 12:11:00
 author:     "SQSong"
 header-img: "img/post-01-bg.jpg"
-header-mask: 0.3
+header-mask: 0.4
 catalog:    true
 tags:
     - android
