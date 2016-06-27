@@ -1,0 +1,103 @@
+# Site settings
+title: SQSong Blog
+SEOTitle: 松毛的博客 | SQSong Blog
+header-img: img/home-bg.jpg
+email: SQSong66@gmail.com
+description: "一个不太靠谱得Android程序猿..."
+keyword: "SQSong, Android, Blog, 博客, 个人网站, 互联网"
+url: "http://sqsong.me"              # your host, for absolute URL
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
+
+
+# SNS settings
+RSS: false
+# weibo_username:     5528342994/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1
+zhihu_username:     song-qing-song-56
+# github_username:    songmao123
+googleplus_username:  u/0/103395130380052920482
+facebook_username:  profile.php?id=100009173661869
+# linkedin_username:  firstname-lastname-idxxxx
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+# Disqus settings
+# disqus_username: SQSong #_your_disqus_short_name_
+
+# Duoshuo settings
+duoshuo_username: SQSong66
+# Share component is depend on Comment so we can NOT use share only.
+duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+
+
+# Analytics settings
+# Baidu Analytics
+ba_track_id: a739a640ddfa971a90a7fb26a2c2a909
+# Google Analytics
+# ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+ga_domain: sqsong.me
+
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "打打代码, 看看电影, 读读书 !!!"
+sidebar-avatar: /img/avatar-bg.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 0              # A tag will be featured if the size of it is more than this condition value
+
+
+# Friends
+friends: [
+    {
+        title: "前端外刊评论",
+        href: "http://qianduan.guru/"
+    },{
+        title: "天镶的博客",
+        href: "http://lingyu.wang/"
+    },{
+        title: "Luke的自留地",
+        href: "http://hmqk1995.github.io"
+    },{
+        title: "Ebn's Blog",
+        href: "http://ebnbin.com/"
+    },{
+        title: "SmdCn's Blog",
+        href: "http://blog.smdcn.net"
+    },{
+        title: "解旻的博客",
+        href: "http://xieminis.me/"
+    },{
+        title: "DHong Say",
+        href: "http://dhong.co"
+    },{
+        title: "尹峰以为",
+        href: "http://ingf.github.io/"
+    },{
+        title: "前端神盾局",
+        href: "http://wepiaofei.github.io/blog/"
+    }
+]
