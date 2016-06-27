@@ -4,8 +4,8 @@ title:      "React vs Angular 2：冰与火之歌「译」"
 subtitle:   "React versus Angular 2: There Will Be Blood"
 date:       2016-02-01 12:00:00
 author:     "Hux"
-header-img: "img/post-bg-re-vs-ng2.jpg"
-header-mask: 0.3
+header-img: "img/post-02-bg.jpg"
+header-mask: 0.4
 catalog:    true
 tags:
     - 前端开发
