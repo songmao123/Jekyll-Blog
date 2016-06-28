@@ -4,7 +4,7 @@ title:      "「知乎」设计师如何学习前端？"
 subtitle:   "How designers learn front-end development?"
 date:       2015-10-28 12:00:00
 author:     "Hux"
-header-img: "img/home-bg-o.jpg"
+header-img: "img/post-04-bg.jpg"
 tags:
     - 知乎
     - 前端开发
@@ -187,10 +187,3 @@ $('.className').click(function(){
 <br>
 <br>
 <br>咦，这个结尾怪怪的……
-
-
-
-
-
-
-
