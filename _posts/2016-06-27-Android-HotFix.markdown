@@ -4,7 +4,7 @@ title:      "Android apk热补丁修复"
 subtitle:   "AndFix热补丁修复线上apk bug"
 date:       2016-06-27 16:38:00
 author:     "SQSong"
-header-img: "img/post-01-bg.jpg"
+header-img: "img/post-05-bg.jpg"
 header-mask: 0.4
 catalog:    true
 tags:
