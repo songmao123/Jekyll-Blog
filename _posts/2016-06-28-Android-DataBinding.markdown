@@ -105,3 +105,131 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 如上面代码所示，我们可以通过`binding`对象来获取布局中对应的控件。
+
+#### 控件的事件处理
+Data Binding允许我们书写表达式来处理一些`view`的分发事件，例如：`onClickListener`、`onLongClickListener`，这些监听在布局文件中都有对ing的属性名称`android:onClick`、`android:onLongClick`，所以我们可以在布局文件中使用表达式来处理该事件。
+
+1. 自定义一个处理事件的类，该类中包含处理事件的方法。
+
+```java
+public class ViewClickHandler {
+   public void onViewClicked(View view, String name) {
+       Toast.makeText(context, "You Clicked " + name, Toast.LENGTH_SHORT).show();
+   }
+}
+```
+
+
+2. 在布局文件中引入数据源以及事件处理的方法。<br>
+  首先需要在`<data>`标签中引入事件处理类，再通过表达式`@{(theView) -> clickHandler.onViewClicked(theView, user.lastName)}`来进行参数的传递。
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.hotfixpatchdemo.bean.User" />
+
+        <variable
+            name="clickHandler"
+            type="com.example.hotfixpatchdemo.adapter.ListItemAdapter.ViewClickHandler" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{(theView) -> clickHandler.onViewClicked(theView, user.lastName)}"
+            android:padding="10dp"
+            android:text="@{user.firstName}"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{(theView) -> clickHandler.onViewClicked(theView, user.firstName)}"
+            android:padding="10dp"
+            android:text="@{user.lastName}"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+</layout>
+```
+
+## ListView使用Data Binding
+ListView使用DataBinding也需要使用`DataBindingUtil`来填充布局文件:<br>
+`ItemListBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_list, parent, false);`
+我们可以通过`binding`类中的`getRoot()`方法来获取`convertView`并返回给`getView`方法, 具体逻辑可以参看以下代码:
+
+```java
+public class ListItemAdapter extends BaseAdapter {
+
+    private Context context;
+    private List<User> mUsers;
+    private LayoutInflater inflater;
+
+    public ListItemAdapter(Context context, List<User> mUsers) {
+        this.context = context;
+        this.mUsers = mUsers;
+        this.inflater = LayoutInflater.from(context);
+    }
+
+    @Override
+    public int getCount() {
+        return mUsers.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mUsers.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    public int getPosition(User user) {
+        return mUsers.indexOf(user);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ItemListBinding binding;
+        if (convertView == null) {
+            binding = DataBindingUtil.inflate(inflater, R.layout.item_list, parent, false);
+            convertView = binding.getRoot();
+            convertView.setTag(binding);
+        } else {
+            binding = (ItemListBinding) convertView.getTag();
+        }
+        User user = mUsers.get(position);
+        binding.setUser(user);
+        binding.setClickHandler(new ViewClickHandler());
+        return convertView;
+    }
+
+    public class ViewClickHandler {
+        public void onViewClicked(View view, String name) {
+            Toast.makeText(context, "You Clicked " + name, Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+```
+
+item布局见上面的xml文件，通过以上方式就可以实现ListView的数据源和布局的绑定，并可以处理控件的相关事件逻辑。<br>
+实现效果图如下所示：<br>
+![demo gif](/img/post-img/post-03-img.gif)
+
+> 本文参考自Android官网 [Data Binding介绍](https://developer.android.com/topic/libraries/data-binding/index.html#method_references)，更多细节请参看官网介绍！
