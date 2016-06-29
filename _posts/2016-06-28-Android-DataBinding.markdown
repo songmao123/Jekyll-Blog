@@ -147,7 +147,7 @@ public class ViewClickHandler {
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="@{(theView) -> clickHandler.onViewClicked(theView, user.lastName)}"
+            android:onClick="@{(theView) -> clickHandler.onViewClicked(theView, user.firstName)}"
             android:padding="10dp"
             android:text="@{user.firstName}"
             android:textColor="@android:color/black"
@@ -158,7 +158,7 @@ public class ViewClickHandler {
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="@{(theView) -> clickHandler.onViewClicked(theView, user.firstName)}"
+            android:onClick="@{(theView) -> clickHandler.onViewClicked(theView, user.lastName)}"
             android:padding="10dp"
             android:text="@{user.lastName}"
             android:textColor="@android:color/black" />
