@@ -13,7 +13,7 @@ baseurl: ""                             # for example, '/blog' if your blog host
 RSS: false
 # weibo_username:     5528342994/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1
 zhihu_username:     song-qing-song-56
-# github_username:    songmao123
+github_username:    songmao123
 googleplus_username:  u/0/103395130380052920482
 facebook_username:  profile.php?id=100009173661869
 # linkedin_username:  firstname-lastname-idxxxx
