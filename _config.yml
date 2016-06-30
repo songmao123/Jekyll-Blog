@@ -55,7 +55,7 @@ disqus_username: SQSong #_your_disqus_short_name_
 # Baidu Analytics
 ba_track_id: a739a640ddfa971a90a7fb26a2c2a909
 # Google Analytics
-# ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+ga_track_id: 'UA-80099246-1'            # Format: UA-xxxxxx-xx
 ga_domain: sqsong.me
 
 
