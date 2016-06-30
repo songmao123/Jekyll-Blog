@@ -43,12 +43,12 @@ kramdown:
 
 
 # Disqus settings
-# disqus_username: SQSong #_your_disqus_short_name_
+disqus_username: SQSong #_your_disqus_short_name_
 
 # Duoshuo settings
-duoshuo_username: SQSong66
+# duoshuo_username: SQSong66
 # Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+# duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 
 
 # Analytics settings
