@@ -230,6 +230,158 @@ public class ListItemAdapter extends BaseAdapter {
 
 item布局见上面的xml文件，通过以上方式就可以实现ListView的数据源和布局的绑定，并可以处理控件的相关事件逻辑。<br>
 实现效果图如下所示：<br>
-![demo gif](/img/post-img/post-03-img.gif)
+![demo gif](/img/post-img/post-03-01.gif)
 
-> 本文参考自Android官网 [Data Binding介绍](https://developer.android.com/topic/libraries/data-binding/index.html#method_references)，更多细节请参看官网介绍！
+## RecyclerView使用Data Binding
+
+#### 在RecyclerView的item布局中绑定数据源
+像正常的在布局中绑定数据源一样，在item布局的跟布局中使用`<layout>`标签, 并引入数据源对象！在该布局中需要注意的是使用了`<ImageView>`控件，由于在布局中无法直接在布局中设置`ImageView`的图片，所以此时需要自定义一个属性来接受图片的地址，然后新建一个类，该类中创建一个静态方法，该方法中接受`ImageView`对象以及它的图片地址，该方法需要添加Data Binding的注解`@BindingAdapter("bind:imageUrl")`.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.hotfixpatchdemo.bean.ListItemData" />
+        <variable
+            name="data"
+            type="ListItemData" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{data.picture}" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{data.title}"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{data.subTitle}"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:checked="@{data.checked ? true : false}" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>
+```
+处理`ImageView`的Adapter类(该方法的注解所带参数需要与布局中`ImageView`自定义的属性名称一致):
+
+```java
+public class CustomBindingAdapter {
+    @BindingAdapter("bind:imageUrl")
+    public static void loadImage(ImageView imageView, String url) {
+        Picasso.with(imageView.getContext()).load(url).
+              transform(new CircleTransform()).into(imageView);
+    }
+}
+```
+
+#### 编写RecyclerView Adapter
+跟创建普通的RecyclerView Adapter有些不同的是：
+
+1. `onCreateViewHolder`方法中填充View使用`DataBindingUtil`;
+
+2. `ViewHolder`的构造方法中接受的参数不再是View, 而是1中填充View产生的`DataBinding`对象，并通过`DataBinding`对象的`getRoot()`方法获取到填充的view返回给`ViewHolder`父类构造方法;
+
+3. `onBindViewHolder`中将数据源的数据传递给`ViewHolder`， 在`ViewHolder`通过`DataBinding`对象来设置数据.
+具体代码逻辑如下:
+
+```java
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
+
+    private List<ListItemData> mDatas;
+    private LayoutInflater mInflater;
+
+    public RecyclerAdapter(Context mContext, List<ListItemData> mDatas) {
+        this.mDatas = mDatas;
+        this.mInflater = LayoutInflater.from(mContext);
+    }
+
+    @Override
+    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ItemRecyclerviewBinding binding = DataBindingUtil.inflate(mInflater, R.layout.item_recyclerview, parent, false);
+        return new RecyclerViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+        ListItemData itemData = mDatas.get(position);
+//        holder.getBinding().setData(itemData);
+//        holder.getBinding().setVariable(BR.data, itemData);
+//        holder.getBinding().executePendingBindings();
+        holder.updateData(itemData);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDatas.size();
+    }
+
+    static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+
+        private ItemRecyclerviewBinding binding;
+
+        public RecyclerViewHolder(ItemRecyclerviewBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public ItemRecyclerviewBinding getBinding() {
+            return binding;
+        }
+
+        public void updateData(ListItemData data) {
+            binding.setVariable(BR.data, data);
+            binding.executePendingBindings();
+        }
+    }
+}
+```
+效果图如下:
+![demo gif](/img/post-img/post-03-02.png)
+
+> 参考文档:<br>
+> [1]. [Android官网Data Binding库介绍;](https://developer.android.com/topic/libraries/data-binding/index.html#method_references) <br>
+> [2]. [Realm棉花糖给 Android 带来的 Data Bindings（数据绑定库）.](https://realm.io/cn/news/data-binding-android-boyar-mount/)
+
+<br>
