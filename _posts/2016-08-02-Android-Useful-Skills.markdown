@@ -27,3 +27,14 @@ AlarmManager mgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
 System.exit(0);
 ```
+
+#### 重命名文件
+```java
+String folderName = StartPageActivity.getStorageDirectory(this, 2);
+File folder = new File(folderName);
+if (folder.exists() && folder.isDirectory()) {
+  File origin = new File(folder, patchFileName);
+  File newFileName = new File(folder, Constant.USED_PATCH_PREFIX + patchFileName);
+  origin.renameTo(newFileName);
+}
+```
